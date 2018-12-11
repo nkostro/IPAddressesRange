@@ -31,9 +31,15 @@ class IPAddress implements Comparable {
 
     /**
      * Add given number to current IP address.
+     * Doesn't check for validity of resulted IP address.
      */
     public void add(int number) {
         ip += number;
+
+        // last byte of ip address can't be equal to zero (except 0.0.0.0)
+        if ((ip & 0xff) == 0x0) {
+            ip += 1;
+        }
     }
 
     @Override
